@@ -5,8 +5,8 @@
 
 - hosts: localhost
   connection: local
-  sudo: yes
-  
+  become: yes
+
   roles:
     - {role: ../../, mesos_install_mode: "master-slave"}
 
