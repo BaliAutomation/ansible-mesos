@@ -47,6 +47,13 @@
   notify:
     - Restart mesos-master
 
+- name: Mesos master rsyslog conf
+  template: src=rsyslog-master.j2 dest=/etc/rsyslog.d/mesos-master.conf
+  when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
+  notify:
+    - Restart mesos-mesos
+    - Restart rsyslog
+
 - name: Mesos Slave credential file
   template: src=mesos-slave-credential.j2 dest=/etc/mesos/slave/credential mode=600
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
@@ -58,7 +65,6 @@
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
   notify:
     - Restart mesos-slave
-
 
 - name: Check if upstart exists
   stat: path=/etc/init/
@@ -75,7 +81,14 @@
   when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave") and etc_init.stat.exists == true
   notify:
     - Restart mesos-slave
-    
+
+- name: Mesos slave rsyslog conf
+  template: src=rsyslog-slave.j2 dest=/etc/rsyslog.d/mesos-slave.conf
+  when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave") and etc_init.stat.exists == true
+  notify:
+    - Restart mesos-slave
+    - Restart rsyslog
+
 - name: Check if systemd exists
   stat: path=/usr/lib/systemd/system/
   register: systemd_check
