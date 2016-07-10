@@ -3,6 +3,12 @@
 - name: create work dir
   file: path={{ mesos_work_dir }} state=directory
 
+- name: create secure dir
+  file: path={{ mesos_secure_conf_dir }} state=directory
+  mode: 0700
+  owner: {{mesos_owner}}
+  group: {{mesos_group}}
+
 # == Remove default configs
 - name: Remove Default Mesos Configs
   file: state=absent path=/etc/mesos/
@@ -23,17 +29,30 @@
     - Restart mesos-master
     - Restart mesos-slave
 
+- name: Mesos Master credentials file
+  template: src=mesos-master-credentials.j2 dest={{ mesos_secure_conf_dir }}/mesos-master-credentials
+  when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
+  notify:
+    - Restart mesos-master
+
 - name: Mesos Master config file
   template: src=conf-mesos-master.j2 dest=/etc/default/mesos-master
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
   notify:
     - Restart mesos-master
 
+- name: Mesos Slave credential file
+  template: src=mesos-slave-credential.j2 dest={{ mesos_secure_conf_dir }}/mesos-slave-credential
+  when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
+  notify:
+    - Restart mesos-slave
+
 - name: Mesos Slave config file
   template: src=conf-mesos-slave.j2 dest=/etc/default/mesos-slave
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
   notify:
     - Restart mesos-slave
+
 
 - name: Check if upstart exists
   stat: path=/etc/init/
