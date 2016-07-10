@@ -6,8 +6,6 @@
 - name: create secure dir
   file: path={{ mesos_secure_conf_dir }} state=directory
   mode: 0700
-  owner: "{{mesos_owner}}"
-  group: "{{mesos_group}}"
 
 # == Remove default configs
 - name: Remove Default Mesos Configs
