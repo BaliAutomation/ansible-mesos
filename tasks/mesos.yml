@@ -3,8 +3,11 @@
 - name: create work dir
   file: path={{ mesos_work_dir }} state=directory
 
+- name: create config dir
+  file: path={{ mesos_conf_dir }} state=directory
+
 - name: create secure dir
-  file: path={{ mesos_secure_conf_dir }} state=directory mode=0700 owner="{{mesos_owner}}"  group="{{mesos_group}}"
+  file: path={{ mesos_secure_conf_dir }} state=directory mode=0700
 
 # == Remove default configs
 - name: Remove Default Mesos Configs
