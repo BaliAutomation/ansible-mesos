@@ -36,6 +36,8 @@ mesos_additional_configs: []
   # - name: FOO
   #   value: bar
 
-mesos_authenticate_all: true
+# Must be a string, as True will be output otherwise, and the argument is not case insensitive.
+mesos_authenticate_all: "true"
+
 mesos_slave_secret: ""
 marathon_secret: ""
