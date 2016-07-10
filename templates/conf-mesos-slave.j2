@@ -6,5 +6,5 @@ export MESOS_EXECUTOR_REGISTRATION_TIMEOUT="{{ mesos_executor_timeout }}"
 export MESOS_PORT="{{ mesos_slave_port }}"
 export MESOS_WORK_DIR="{{ mesos_work_dir }}"
 
-export MESOS_CREDENTIAL="{{ mesos_secure_conf_dir }}/mesos-slave-credential"
-export MESOS_HTTP_CREDENTIALS="{{ mesos_secure_conf_dir }}/mesos-http-credentials"
+export MESOS_CREDENTIAL="/etc/mesos/slave/credential"
+export MESOS_HTTP_CREDENTIALS="/etc/mesos/http/credentials"
