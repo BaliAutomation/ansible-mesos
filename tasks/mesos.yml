@@ -23,6 +23,18 @@
     - Restart mesos-master
     - Restart mesos-slave
 
+- name: create Mesos Master config dir
+  file: path=/etc/mesos/master state=directory
+  when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
+
+- name: create Mesos Slave config dir
+  file: path=/etc/mesos/slave state=directory
+  when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
+
+- name: create Mesos HTTP credentials dir
+  file: path=/etc/mesos/http state=directory
+  when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
+
 - name: Mesos Master credentials file
   template: src=mesos-master-credentials.j2 dest=/etc/mesos/master/credentials mode=700 owner=root group=root
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
