@@ -84,7 +84,7 @@
 
 - name: Mesos slave rsyslog conf
   template: src=rsyslog-slave.j2 dest=/etc/rsyslog.d/mesos-slave.conf
-  when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave") and etc_init.stat.exists == true
+  when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave")
   notify:
     - Restart mesos-slave
     - Restart rsyslog
