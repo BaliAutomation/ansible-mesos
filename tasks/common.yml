@@ -10,12 +10,8 @@
     - python-devel
   when: ansible_os_family == "RedHat"
 
-- find: paths=/usr/lib/python2.7/site-packages/mesos.cli-0.25.0.dist-info file_type=directory patterns="*"
-  register: empty_mesos_cli_dist
-
 - name: remove bad pip directory
   file: path=/usr/lib/python2.7/site-packages/mesos.cli-0.25.0.dist-info state=absent
-  when: empty_mesos_cli_dist.matched|int != 0
 
 - name: install python module consulate
   pip: >
