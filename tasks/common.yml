@@ -1,2 +1,21 @@
 ---
 - debug: msg="Install Mode is {{mesos_install_mode}}"
+
+- name: install deps (RHEL)
+  yum: >
+    name={{item}}
+    state=installed
+  with_items:
+    - python-pip
+    - python-devel
+  when: ansible_os_family == "RedHat"
+
+- name: remove bad pip directory
+  file: /usr/lib/python2.7/site-packages/mesos.cli-0.25.0.dist-info state=absent
+
+- name: install python module consulate
+  pip: >
+    name={{item}}
+  with_items:
+    - mesos.cli
+    - mesos.interface
