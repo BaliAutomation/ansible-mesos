@@ -1,6 +1,6 @@
 ---
 - name: install Mesos DNS
-  get_url: url={{mesos_dns_url}} dest=/usr/local/bin/mesos-dns
+  get_url: url={{mesos_dns_url}} dest=/usr/local/bin/mesos-dns mode=755
   tags: bootstrap
 
 - name: create conf directory
