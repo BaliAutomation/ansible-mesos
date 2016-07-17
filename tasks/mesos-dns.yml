@@ -14,8 +14,3 @@
   when: mesos_install_mode == "master"
   notify:
     - Restart mesos-dns
-
-- name: set DNS resolver in resolv.conf
-  lineinfile: dest=/etc/resolv.conf regexp="^(nameserver )" state=present line="nameserver {{item}}"
-
-
