@@ -26,6 +26,8 @@ mesos_zookeeper_masters: "zk://{{ zookeeper_hostnames }}/mesos"
 mesos_owner: "root"
 mesos_group: "root"
 
+mesos_dns_url: "https://github.com/mesosphere/mesos-dns/releases/download/v0.5.2/mesos-dns-v0.5.2-linux-amd64"
+
 # Containerizer
 mesos_containerizers: "mesos"
 mesos_executor_timeout: "5mins"

@@ -1,0 +1,21 @@
+---
+- name: install Mesos DNS
+  get_url: url={{mesos_dns_url}} dest=/usr/local/bin/mesos-dns
+  tags: bootstrap
+
+- name copy mesos-service.conf
+  template: src=mesos-dns-service.j2 dest=/etc/systemd/system/mesos-dns.service
+  when: mesos_install_mode == "master"
+  notify:
+    - Restart mesos-dns
+
+- name: copy mesos-dns.conf
+  template: src=conf-mesos-dns.j2 dest=/etc/mesos/dns/config.json
+  when: mesos_install_mode == "master"
+  notify:
+    - Restart mesos-dns
+
+- name: set DNS resolver in resolv.conf
+  lineinfile: dest=/etc/resolv.conf regexp="^(nameserver )" state=present line="nameserver {{item}}"
+
+
