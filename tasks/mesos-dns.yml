@@ -18,3 +18,6 @@
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
   notify:
     - Restart mesos-dns
+
+- name: Start Mesos DNS
+  service: name=mesos-dns state=restarted enabled=yes
