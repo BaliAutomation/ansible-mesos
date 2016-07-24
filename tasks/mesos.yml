@@ -35,6 +35,9 @@
   file: path=/etc/mesos/http state=directory
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
 
+- name: Copy framework password file
+  template: src=frameworkpassword.j2 dest=/etc/mesos/frameworkpasswd mode=400
+
 - name: Mesos Master credentials file
   template: src=mesos-master-credentials.j2 dest=/etc/mesos/master/credentials mode=600 owner=root group=root
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
