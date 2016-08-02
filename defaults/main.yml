@@ -27,6 +27,7 @@ mesos_owner: "root"
 mesos_group: "root"
 
 mesos_dns_url: "https://github.com/mesosphere/mesos-dns/releases/download/v0.5.2/mesos-dns-v0.5.2-linux-amd64"
+mesos_dns_state: restarted
 
 # Containerizer
 mesos_containerizers: "mesos"

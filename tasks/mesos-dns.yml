@@ -20,5 +20,5 @@
     - Restart mesos-dns
 
 - name: Start Mesos DNS
-  service: name=mesos-dns state=restarted enabled=yes
+  service: name=mesos-dns state={{mesos_dns_state}} enabled=yes
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
