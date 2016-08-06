@@ -10,4 +10,4 @@
 
 - include: mesos.yml
 
-- include: mesos-dns.yml
+#- include: mesos-dns.yml
