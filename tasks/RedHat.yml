@@ -3,7 +3,7 @@
   yum: pkg={{ mesosphere_yum_repo }} state=present
 
 - name: Downloading and enable the EPEL repository definitions.
-  yum: name={{ epel_repo }} state=present
+  yum: pkg={{ epel_repo }} state=present
 
 - name: Install os packages
   yum: pkg={{item}} state=present
