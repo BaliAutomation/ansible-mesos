@@ -20,8 +20,8 @@
 - name: Mesos default config file
   template: src=conf-mesos.j2 dest=/etc/default/mesos
   notify:
-    - Restart mesos-master
-    - Restart mesos-slave
+    - restart mesos-master
+    - restart mesos-slave
 
 - name: create Mesos Master config dir
   file: path=/etc/mesos/master state=directory
@@ -42,32 +42,32 @@
   template: src=mesos-master-credentials.j2 dest=/etc/mesos/master/credentials mode=600 owner=root group=root
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
   notify:
-    - Restart mesos-master
+    - restart mesos-master
 
 - name: Mesos Master config file
   template: src=conf-mesos-master.j2 dest=/etc/default/mesos-master mode=600
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
   notify:
-    - Restart mesos-master
+    - restart mesos-master
 
 - name: Mesos master rsyslog conf
   template: src=rsyslog-master.j2 dest=/etc/rsyslog.d/mesos-master.conf
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
   notify:
-    - Restart mesos-mesos
-    - Restart rsyslog
+    - restart mesos-mesos
+    - restart rsyslog
 
 - name: Mesos Slave credential file
   template: src=mesos-slave-credential.j2 dest=/etc/mesos/slave/credential mode=600 owner=root group=root
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
   notify:
-    - Restart mesos-slave
+    - restart mesos-slave
 
 - name: Mesos Slave config file
   template: src=conf-mesos-slave.j2 dest=/etc/default/mesos-slave
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
   notify:
-    - Restart mesos-slave
+    - restart mesos-slave
 
 - name: Check if upstart exists
   stat: path=/etc/init/
@@ -77,20 +77,20 @@
   template: src=init-mesos-master.j2 dest=/etc/init/mesos-master.conf
   when: (mesos_install_mode == "master" or mesos_install_mode == "master-slave") and etc_init.stat.exists == true
   notify:
-    - Restart mesos-master
+    - restart mesos-master
 
 - name: Mesos slave upstart script
   template: src=init-mesos-slave.j2 dest=/etc/init/mesos-slave.conf
   when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave") and etc_init.stat.exists == true
   notify:
-    - Restart mesos-slave
+    - restart mesos-slave
 
 - name: Mesos slave rsyslog conf
   template: src=rsyslog-slave.j2 dest=/etc/rsyslog.d/mesos-slave.conf
   when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave")
   notify:
-    - Restart mesos-slave
-    - Restart rsyslog
+    - restart mesos-slave
+    - restart rsyslog
 
 - name: Check if systemd exists
   stat: path=/usr/lib/systemd/system/
@@ -100,15 +100,15 @@
   template: src=mesos-master.service.j2 dest=/usr/lib/systemd/system/mesos-master.service
   when: (mesos_install_mode == "master" or mesos_install_mode == "master-slave") and systemd_check.stat.exists == true
   notify:
-    - Reload daemon
-    - Restart mesos-master
+    - reload daemon
+    - restart mesos-master
 
 - name: Mesos slave systemd script
   template: src=mesos-slave.service.j2 dest=/usr/lib/systemd/system/mesos-slave.service
   when: (mesos_install_mode == "slave" or mesos_install_mode == "master-slave") and systemd_check.stat.exists == true
   notify:
-    - Reload daemon
-    - Restart mesos-slave
+    - reload daemon
+    - restart mesos-slave
 
 - name: Disable mesos-master service
   service: name=mesos-master enabled=no

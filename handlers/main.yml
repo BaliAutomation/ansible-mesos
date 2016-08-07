@@ -1,17 +1,17 @@
 ---
 
 # While waiting for https://github.com/ansible/ansible-modules-core/issues/191
-- name: Reload daemon
+- name: reload daemon
   command: systemctl daemon-reload
   
 # i.e. upgrade mesos, templates stay the same...
-- name: Restart mesos-master
+- name: restart mesos-master
   service: name=mesos-master state=restarted
   when: mesos_install_mode == "master" or mesos_install_mode == "master-slave"
 
-- name: Restart mesos-slave 
+- name: restart mesos-slave
   service: name=mesos-slave state=restarted
   when: mesos_install_mode == "slave" or mesos_install_mode == "master-slave"
 
-- name: Restart rsyslog
+- name: restart rsyslog
   service: name=rsyslog state=restarted
