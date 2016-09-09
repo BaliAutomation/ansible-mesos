@@ -1,6 +1,4 @@
 ---
-- debug: msg="Install Mode is {{mesos_install_mode}}"
-
 - name: install deps (RHEL)
   yum: >
     name={{item}}
