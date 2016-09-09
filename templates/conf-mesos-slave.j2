@@ -1,10 +1,10 @@
 # {{ansible_managed}}
 
-export MESOS_CONTAINERIZERS="{{ mesos_containerizers }}"
-export MESOS_MASTER="{{ mesos_zookeeper_masters }}"
-export MESOS_EXECUTOR_REGISTRATION_TIMEOUT="{{ mesos_executor_timeout }}"
-export MESOS_PORT="{{ mesos_slave_port }}"
-export MESOS_WORK_DIR="{{ mesos_work_dir }}"
+export MESOS_CONTAINERIZERS="{{mesos_containerizers}}"
+export MESOS_MASTER="{{mesos_zookeeper_masters}}"
+export MESOS_EXECUTOR_REGISTRATION_TIMEOUT="{{mesos_executor_timeout}}"
+export MESOS_PORT="{{mesos_slave_port}}"
+export MESOS_WORK_DIR="{{mesos_work_dir}}"
 
 export MESOS_CREDENTIAL="/etc/mesos/slave/credential"
 export MESOS_HTTP_CREDENTIALS="/etc/mesos/http/credentials"
