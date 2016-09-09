@@ -17,6 +17,7 @@
   file: state=absent path=/etc/mesos-slave/
 
 # == Configure and recreate
+- debug: {{zookeeper_hostnames}}
 - name: Mesos default config file
   template: src=conf-mesos.j2 dest=/etc/default/mesos
   notify:

@@ -21,7 +21,7 @@ mesos_ulimit: "-n 8192"
 mesos_work_dir: "/var/mesos"
 mesos_quorum: "1"
 zookeeper_client_port: "2181"
-mesos_zookeeper_masters: "zk://{{ zookeeper_hostnames | join(':' + zookeeper_client_port + ',')  }}:{{ zookeeper_client_port  }}/mesos"
+mesos_zookeeper_masters: "zk://{{zookeeper_hostnames | join(':' + zookeeper_client_port + ',')  }}:{{ zookeeper_client_port  }}/mesos"
 mesos_owner: "root"
 mesos_group: "root"
 
