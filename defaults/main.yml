@@ -43,4 +43,5 @@ mesos_authenticate_all: "true"
 
 mesos_slave_secret: ""
 marathon_secret: ""
+elasticsearch_secret: ""
 mesos_framework_password: ""
